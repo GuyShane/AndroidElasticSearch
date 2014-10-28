@@ -9,8 +9,8 @@ import android.view.View;
 import android.widget.TextView;
 import ca.ualberta.ssrg.androidelasticsearch.R;
 import ca.ualberta.ssrg.movies.es.ESMovieManager;
-import ca.ualberta.ssrg.movies.es.Movie;
 import ca.ualberta.ssrg.movies.es.IMovieManager;
+import ca.ualberta.ssrg.movies.es.Movie;
 
 public class AddActivity extends Activity {
 

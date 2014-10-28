@@ -12,8 +12,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import ca.ualberta.ssrg.androidelasticsearch.R;
 import ca.ualberta.ssrg.movies.es.ESMovieManager;
@@ -87,7 +87,9 @@ public class MainActivity extends Activity {
 
 		// Refresh the list when visible
 		// TODO: Search all
-		
+		movies.clear();
+		Thread thread=new SearchThread("");
+		thread.start();
 	}
 
 	/** 
@@ -98,9 +100,11 @@ public class MainActivity extends Activity {
 		movies.clear();
 
 		// TODO: Extract search query from text view
-		
+		TextView tv=(TextView)findViewById(R.id.editText1);
+		String searchString=tv.getText().toString();
 		// TODO: Run the search thread
-		
+		Thread thread=new SearchThread(searchString);
+		thread.start();
 	}
 	
 	/**
@@ -126,7 +130,17 @@ public class MainActivity extends Activity {
 
 	class SearchThread extends Thread {
 		// TODO: Implement search thread
+		private String search;
+		public SearchThread(String s) {
+			search=s;
+		}
 		
+		@Override
+		public void run() {
+			movies.clear();
+			movies.addAll(movieManager.searchMovies(search, null));
+			runOnUiThread(doUpdateGUIList);
+		}
 	}
 
 	
